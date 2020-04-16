@@ -1,0 +1,49 @@
+type Category @model {
+  id: ID!
+  name: String!
+}
+
+type City @model {
+  id: ID!
+  name: String!
+  uf: String!
+}
+
+type Company
+  @model
+  @key(name: "bySlug", fields: ["slug"], queryField: "companiesBySlug")
+  @key(
+    name: "byCityByCategory"
+    fields: ["cityId", "categoryId"]
+    queryField: "companiesByCityByCategory"
+  ) {
+  id: ID!
+  cityId: ID!
+  categoryId: ID!
+  _cityId: String!
+  _categoryId: String!
+  slug: String!
+  name: String!
+  tagline: String!
+  category: Category @connection(fields: ["categoryId"])
+  city: City @connection(fields: ["cityId"])
+  products: [Product!] @connection(keyName: "companyProducts", fields: ["id"])
+}
+
+type Product
+  @model
+  @key(name: "companyProducts", fields: ["companyId"])
+  @key(
+    name: "byCompanyCategory"
+    fields: ["companyCategoryId", "promotionalPrice"]
+    queryField: "productsByCompanyCategory"
+  ) {
+  id: ID!
+  companyId: ID!
+  companyCategoryId: ID!
+  company: Company @connection(fields: ["companyId"])
+  name: String!
+  isInPromotion: Boolean!
+  price: Float!
+  promotionalPrice: Float
+}

@@ -1,0 +1,64 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+@tailwind utilities;
+
+button,
+a {
+  outline: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+button {
+  color: theme('colors.gray.dark');
+}
+
+input {
+  outline: none !important;
+  appearance: none !important;
+}
+
+.border-t-1 {
+  border-top-width: 1px;
+}
+
+.border-b-1 {
+  border-bottom-width: 1px;
+}
+
+.border-1 {
+  border-width: 1px;
+}
+
+.top-3 {
+  top: 3.2rem;
+}
+
+.spin {
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.bg-black-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
