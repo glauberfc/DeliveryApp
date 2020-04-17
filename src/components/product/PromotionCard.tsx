@@ -5,6 +5,8 @@ import { Card, Text, Button, Icon } from 'react-native-elements'
 import PrimaryButton from '../PrimaryButton'
 // import CompanyLogoContainer from './CompanyLogoContainer'
 import { Product } from '../../models'
+import { Platform } from 'react-native'
+import Router from 'next/router'
 
 interface Props {
   product: Product
@@ -34,7 +36,9 @@ export default function PromotionCard({ product }: Props) {
     //   </a>
     // </Link>
     <Card image={{ uri: '/burger-king.png' }}>
-      <Text style={{ marginBottom: 10 }}>{product.name}</Text>
+      <Text accessibilityRole="link" style={{ marginBottom: 10 }}>
+        {product.name}
+      </Text>
       <Text style={{ marginBottom: 10 }}>
         The idea with React Native Elements is more about component structure
         than actual design.
@@ -47,6 +51,7 @@ export default function PromotionCard({ product }: Props) {
           marginRight: 0,
           marginBottom: 0,
         }}
+        onPress={() => Router.push('/empresa/[slug]', '/empresa/big-burger')}
       />
     </Card>
   )

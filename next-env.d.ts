@@ -33,9 +33,9 @@ type Products = Array<{
 } | null>
 
 type Product = {
-  __typename: 'Product'
+  // __typename: 'Product'
   id: string
-  companyId: string
+  // companyId: string
   name: string
   isInPromotion: boolean
   price: number
