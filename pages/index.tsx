@@ -9,7 +9,7 @@ import { FiltersProvider } from '../src/contexts/filters-context'
 import { UPDATE_SELECTED_CITY } from '../src/constants/actions'
 import { ListCitysQuery } from '../src/API'
 import { City } from '../src/models'
-import PromotionsList from '../src/components/product/PromotionsList'
+import PromotionsList from '../src/components/promotion/PromotionsList'
 
 interface Props {
   cities: City[]

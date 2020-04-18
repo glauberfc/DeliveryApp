@@ -1,50 +1,18 @@
 import 'react-native-gesture-handler'
-import * as React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import { enableScreens } from 'react-native-screens'
+enableScreens()
+
+import React from 'react'
 import { registerRootComponent } from 'expo'
-import { createStackNavigator } from '@react-navigation/stack'
-import { View, Text, Button } from 'react-native'
+import API from '@aws-amplify/api'
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  )
-}
+import awsConfig from './src/aws-exports'
+import AppNavigation from './src/navigation'
 
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.push('Details')}
-      />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
-  )
-}
-
-const Stack = createStackNavigator()
+API.configure(awsConfig)
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Title  ' }}
-        />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
+  return <AppNavigation />
 }
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

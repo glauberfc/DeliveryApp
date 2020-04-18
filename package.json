@@ -17,6 +17,7 @@
     "@aws-amplify/datastore": "^2.0.5",
     "@expo/html-elements": "^0.0.0-alpha.5",
     "@react-native-community/masked-view": "^0.1.9",
+    "@react-native-community/netinfo": "^5.7.1",
     "@react-navigation/native": "^5.1.5",
     "@react-navigation/stack": "^5.2.10",
     "downshift": "^5.0.5",
