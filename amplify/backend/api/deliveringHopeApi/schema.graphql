@@ -25,10 +25,24 @@ type Company
   slug: String!
   name: String!
   tagline: String!
+  logo: String!
+  cover: String
   category: Category @connection(fields: ["categoryId"])
   city: City @connection(fields: ["cityId"])
+  address: String!
+  zipCode: String!
+  # businessHours: BusinessHours
   products: [Product!] @connection(keyName: "companyProducts", fields: ["id"])
 }
+
+# type BusinessHours {
+#   sunday: {
+#     startTime: AWSTime!,
+#     endTime: AWSTime!,
+#     closed: Boolean!
+#     OpenAllDay: Boolean!
+#   }
+# }
 
 type Product
   @model
@@ -41,9 +55,13 @@ type Product
   id: ID!
   companyId: ID!
   companyCategoryId: ID!
+  menuSection: String
   company: Company @connection(fields: ["companyId"])
   name: String!
-  isInPromotion: Boolean!
+  description: String!
+  picture: String
   price: Float!
+  isInPromotion: Boolean!
   promotionalPrice: Float
+  promotionDueDate: AWSDateTime
 }

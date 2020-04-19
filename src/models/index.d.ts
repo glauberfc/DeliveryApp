@@ -26,8 +26,12 @@ export declare class Company {
   readonly slug: string;
   readonly name: string;
   readonly tagline: string;
+  readonly logo: string;
+  readonly cover?: string;
   readonly category?: Category;
   readonly city?: City;
+  readonly address: string;
+  readonly zipCode: string;
   readonly products?: Product[];
   constructor(init: ModelInit<Company>);
   static copyOf(source: Company, mutator: (draft: MutableModel<Company>) => MutableModel<Company> | void): Company;
@@ -35,11 +39,16 @@ export declare class Company {
 
 export declare class Product {
   readonly id: string;
+  readonly companyCategoryId: string;
+  readonly menuSection?: string;
   readonly company?: Company;
   readonly name: string;
-  readonly isInPromotion: boolean;
+  readonly description: string;
+  readonly picture?: string;
   readonly price: number;
-  readonly promotionalPrice: number;
+  readonly isInPromotion: boolean;
+  readonly promotionalPrice?: number;
+  readonly promotionDueDate?: string;
   constructor(init: ModelInit<Product>);
   static copyOf(source: Product, mutator: (draft: MutableModel<Product>) => MutableModel<Product> | void): Product;
 }

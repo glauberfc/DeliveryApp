@@ -106,6 +106,20 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "logo": {
+                    "name": "logo",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "cover": {
+                    "name": "cover",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "category": {
                     "name": "category",
                     "isArray": false,
@@ -131,6 +145,20 @@ export const schema = {
                         "connectionType": "BELONGS_TO",
                         "targetName": "cityId"
                     }
+                },
+                "address": {
+                    "name": "address",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "zipCode": {
+                    "name": "zipCode",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "products": {
                     "name": "products",
@@ -186,6 +214,20 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "companyCategoryId": {
+                    "name": "companyCategoryId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "menuSection": {
+                    "name": "menuSection",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "company": {
                     "name": "company",
                     "isArray": false,
@@ -206,11 +248,18 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "isInPromotion": {
-                    "name": "isInPromotion",
+                "description": {
+                    "name": "description",
                     "isArray": false,
-                    "type": "Boolean",
+                    "type": "String",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "picture": {
+                    "name": "picture",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "price": {
@@ -220,11 +269,25 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "isInPromotion": {
+                    "name": "isInPromotion",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "promotionalPrice": {
                     "name": "promotionalPrice",
                     "isArray": false,
                     "type": "Float",
-                    "isRequired": true,
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "promotionDueDate": {
+                    "name": "promotionDueDate",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
                     "attributes": []
                 }
             },
@@ -243,11 +306,22 @@ export const schema = {
                             "companyId"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byCompanyCategory",
+                        "fields": [
+                            "companyCategoryId",
+                            "promotionalPrice"
+                        ],
+                        "queryField": "productsByCompanyCategory"
+                    }
                 }
             ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "4575050dee13a5034c21b45fe1ebc6da"
+    "version": "357717f72992041f46d7ca4822f3a670"
 };

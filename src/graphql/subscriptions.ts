@@ -82,6 +82,8 @@ export const onCreateCompany = /* GraphQL */ `
       slug
       name
       tagline
+      logo
+      cover
       category {
         id
         name
@@ -97,7 +99,25 @@ export const onCreateCompany = /* GraphQL */ `
         _deleted
         _lastChangedAt
       }
+      address
+      zipCode
       products {
+        items {
+          id
+          companyId
+          companyCategoryId
+          menuSection
+          name
+          description
+          picture
+          price
+          isInPromotion
+          promotionalPrice
+          promotionDueDate
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -118,6 +138,8 @@ export const onUpdateCompany = /* GraphQL */ `
       slug
       name
       tagline
+      logo
+      cover
       category {
         id
         name
@@ -133,7 +155,25 @@ export const onUpdateCompany = /* GraphQL */ `
         _deleted
         _lastChangedAt
       }
+      address
+      zipCode
       products {
+        items {
+          id
+          companyId
+          companyCategoryId
+          menuSection
+          name
+          description
+          picture
+          price
+          isInPromotion
+          promotionalPrice
+          promotionDueDate
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -154,6 +194,8 @@ export const onDeleteCompany = /* GraphQL */ `
       slug
       name
       tagline
+      logo
+      cover
       category {
         id
         name
@@ -169,7 +211,25 @@ export const onDeleteCompany = /* GraphQL */ `
         _deleted
         _lastChangedAt
       }
+      address
+      zipCode
       products {
+        items {
+          id
+          companyId
+          companyCategoryId
+          menuSection
+          name
+          description
+          picture
+          price
+          isInPromotion
+          promotionalPrice
+          promotionDueDate
+          _version
+          _deleted
+          _lastChangedAt
+        }
         nextToken
         startedAt
       }
@@ -185,6 +245,7 @@ export const onCreateProduct = /* GraphQL */ `
       id
       companyId
       companyCategoryId
+      menuSection
       company {
         id
         cityId
@@ -194,14 +255,40 @@ export const onCreateProduct = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        city {
+          id
+          name
+          uf
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
       }
       name
-      isInPromotion
+      description
+      picture
       price
+      isInPromotion
       promotionalPrice
+      promotionDueDate
       _version
       _deleted
       _lastChangedAt
@@ -214,6 +301,7 @@ export const onUpdateProduct = /* GraphQL */ `
       id
       companyId
       companyCategoryId
+      menuSection
       company {
         id
         cityId
@@ -223,14 +311,40 @@ export const onUpdateProduct = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        city {
+          id
+          name
+          uf
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
       }
       name
-      isInPromotion
+      description
+      picture
       price
+      isInPromotion
       promotionalPrice
+      promotionDueDate
       _version
       _deleted
       _lastChangedAt
@@ -243,6 +357,7 @@ export const onDeleteProduct = /* GraphQL */ `
       id
       companyId
       companyCategoryId
+      menuSection
       company {
         id
         cityId
@@ -252,14 +367,40 @@ export const onDeleteProduct = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        city {
+          id
+          name
+          uf
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
       }
       name
-      isInPromotion
+      description
+      picture
       price
+      isInPromotion
       promotionalPrice
+      promotionDueDate
       _version
       _deleted
       _lastChangedAt

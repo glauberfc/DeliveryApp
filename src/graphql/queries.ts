@@ -29,6 +29,9 @@ export const getCategory = /* GraphQL */ `
     getCategory(id: $id) {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `
@@ -77,6 +80,9 @@ export const getCity = /* GraphQL */ `
       id
       name
       uf
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `
@@ -119,6 +125,23 @@ export const syncCompanies = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+        }
+        city {
+          id
+          name
+          uf
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -136,6 +159,8 @@ export const getCompany = /* GraphQL */ `
       slug
       name
       tagline
+      logo
+      cover
       category {
         id
         name
@@ -145,10 +170,28 @@ export const getCompany = /* GraphQL */ `
         name
         uf
       }
+      address
+      zipCode
       products {
+        items {
+          id
+          companyId
+          companyCategoryId
+          menuSection
+          name
+          description
+          picture
+          price
+          isInPromotion
+          promotionalPrice
+          promotionDueDate
+        }
         nextToken
         startedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `
@@ -168,6 +211,23 @@ export const listCompanys = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+        }
+        city {
+          id
+          name
+          uf
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -191,10 +251,28 @@ export const syncProducts = /* GraphQL */ `
         id
         companyId
         companyCategoryId
+        menuSection
+        company {
+          id
+          cityId
+          categoryId
+          _cityId
+          _categoryId
+          slug
+          name
+          tagline
+          logo
+          cover
+          address
+          zipCode
+        }
         name
-        isInPromotion
+        description
+        picture
         price
+        isInPromotion
         promotionalPrice
+        promotionDueDate
       }
       nextToken
       startedAt
@@ -207,6 +285,7 @@ export const getProduct = /* GraphQL */ `
       id
       companyId
       companyCategoryId
+      menuSection
       company {
         id
         cityId
@@ -216,11 +295,34 @@ export const getProduct = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+        }
+        city {
+          id
+          name
+          uf
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
       }
       name
-      isInPromotion
+      description
+      picture
       price
+      isInPromotion
       promotionalPrice
+      promotionDueDate
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `
@@ -235,10 +337,28 @@ export const listProducts = /* GraphQL */ `
         id
         companyId
         companyCategoryId
+        menuSection
+        company {
+          id
+          cityId
+          categoryId
+          _cityId
+          _categoryId
+          slug
+          name
+          tagline
+          logo
+          cover
+          address
+          zipCode
+        }
         name
-        isInPromotion
+        description
+        picture
         price
+        isInPromotion
         promotionalPrice
+        promotionDueDate
       }
       nextToken
       startedAt
@@ -269,6 +389,23 @@ export const companiesBySlug = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+        }
+        city {
+          id
+          name
+          uf
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -301,6 +438,23 @@ export const companiesByCityByCategory = /* GraphQL */ `
         slug
         name
         tagline
+        logo
+        cover
+        category {
+          id
+          name
+        }
+        city {
+          id
+          name
+          uf
+        }
+        address
+        zipCode
+        products {
+          nextToken
+          startedAt
+        }
       }
       nextToken
       startedAt
@@ -328,10 +482,28 @@ export const productsByCompanyCategory = /* GraphQL */ `
         id
         companyId
         companyCategoryId
+        menuSection
+        company {
+          id
+          cityId
+          categoryId
+          _cityId
+          _categoryId
+          slug
+          name
+          tagline
+          logo
+          cover
+          address
+          zipCode
+        }
         name
-        isInPromotion
+        description
+        picture
         price
+        isInPromotion
         promotionalPrice
+        promotionDueDate
       }
       nextToken
       startedAt
