@@ -6,22 +6,23 @@ import { FlatList } from 'react-native-gesture-handler'
 import CategoryCard from './CategoryCard'
 
 export default function PromotionsList() {
-  const [promotions, isLoading, error] = usePromotions()
+  return null
+  // const [promotions, isLoading, error] = usePromotions()
 
-  if (isLoading) {
-    return <Text accessibilityRole="text">Loading...</Text>
-  }
+  // if (isLoading) {
+  //   return <Text accessibilityRole="text">Loading...</Text>
+  // }
 
-  return (
-    <View>
-      <FlatList
-        horizontal
-        keyExtractor={(item) => item.id}
-        data={promotions}
-        renderItem={({ item }) => <CategoryCard category={item} />}
-      />
-    </View>
-  )
+  // return (
+  //   <View>
+  //     <FlatList
+  //       horizontal
+  //       keyExtractor={(item) => item.id}
+  //       data={promotions}
+  //       renderItem={({ item }) => <CategoryCard category={item} />}
+  //     />
+  //   </View>
+  // )
 }
 
 // const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import { HOME, PROMOTION_DETAILS } from './constants'
 import { RouteProp } from '@react-navigation/native'
-import { Product } from '../../next-env'
+import { Product } from '../models'
 
 export type RootStackParamList = {
   [HOME]: undefined

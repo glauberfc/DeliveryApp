@@ -15,13 +15,13 @@ export default function usePromotions(): [Product[], boolean, any] {
   const [promotions, setPromotions] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState()
-  // const { cityId } = useFiltersState()
+  const { categoryId } = useFiltersState()
 
   useEffect(() => {
     async function fetchCompaniesPromotions() {
       try {
         setIsLoading(true)
-        const promotions = await fetchPromotions()
+        const promotions = await fetchPromotions(categoryId)
         setPromotions(promotions)
         setIsLoading(false)
       } catch (error) {
@@ -31,13 +31,13 @@ export default function usePromotions(): [Product[], boolean, any] {
     }
 
     fetchCompaniesPromotions()
-  }, [])
+  }, [categoryId])
 
   return [promotions, isLoading, error]
 }
 
-async function fetchPromotions(cityId?: string) {
-  if (!cityId) {
+async function fetchPromotions(categoryId?: string) {
+  if (!categoryId) {
     const result = (await API.graphql(
       graphqlOperation(listProducts, {
         filter: {
@@ -54,7 +54,7 @@ async function fetchPromotions(cityId?: string) {
 
   // const result = (await API.graphql(
   //   graphqlOperation(promotionsByCityByCategory, {
-  //     cityId,
+  //     categoryId,
   //   } as ListCompanysQueryVariables),
   // )) as {
   //   data: ListCompanysQuery

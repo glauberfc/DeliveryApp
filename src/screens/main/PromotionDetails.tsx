@@ -12,40 +12,41 @@ import {
 import layout from '../../styles/layout'
 import { PromotionsDetailsProps } from '../../navigation/types'
 import { FlatList } from 'react-native-gesture-handler'
-import PromotionCard from '../../components/promotion/PromotionCard'
+import PromotionItem from '../../components/promotion/PromotionDetail'
 
 export default function PromotionDetails({ route }: PromotionsDetailsProps) {
   const { product } = route.params
+
   return (
     <ScrollView style={styles.container}>
       <Image
         containerStyle={{ width: 200, height: 200 }}
-        source={{
-          uri:
-            'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=774q=50',
-        }}
+        source={{ uri: product.picture }}
       />
-      <Text h4>{product.name}</Text>
-      <Text>O melhor da cidade pelo menor preço</Text>
+      <PromotionItem product={product} />
+      {/* <Text h4>{product.name}</Text>
+      <Text>{product.description}</Text>
       <Text>Selectione a quantidade</Text>
       <Text>De {product.price}</Text>
       <Text>Por {product.promotionalPrice}</Text>
       <Button title="+" />
       <Text>1</Text>
       <Button title="-" />
-      <Button title="Comprar agora" />
+      <Button title="Adicionar" /> */}
 
       <Divider />
       <Avatar
         rounded
         size="small"
+        source={{ uri: product.company.logo }}
         icon={{
           type: 'font-awesome',
           name: 'building-o',
         }}
       />
-      <Text>Cantinho Paulista</Text>
-      <Text>R. João Cachoeira, 1593, Itaim Bibi São Paulo SP 04531-013</Text>
+      <Text>{product.company.name}</Text>
+      <Text>{product.company.address}</Text>
+      <Text>CEP: {product.company.zipCode}</Text>
       <Text>Aberto</Text>
 
       <Divider />

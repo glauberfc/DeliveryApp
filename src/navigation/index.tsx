@@ -12,17 +12,20 @@ import { HOME, PROMOTION_DETAILS } from './constants'
 import PromotionDetails from '../screens/main/PromotionDetails'
 import appInfo from '../../app.json'
 import { Icon } from 'react-native-elements'
+import { View } from 'react-native'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
 const defaultNavigationOptions = {
   headerBackTitleVisible: false,
   headerRight: () => (
-    <Icon
-      type="feather"
-      name="shopping-bag"
-      containerStyle={{ marginRight: 8 }}
-    />
+    <View>
+      <Icon
+        type="feather"
+        name="shopping-bag"
+        containerStyle={{ marginRight: 8 }}
+      />
+    </View>
   ),
 }
 

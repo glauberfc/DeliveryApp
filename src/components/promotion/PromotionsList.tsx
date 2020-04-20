@@ -13,6 +13,10 @@ export default function PromotionsList() {
     return <Text accessibilityRole="text">Loading...</Text>
   }
 
+  // if (status === 'error') {
+  //   return <Text>Erro ao tentar carregar as promoções</Text>
+  // }
+
   return (
     <View>
       <FlatList

@@ -1,12 +1,12 @@
 import React from 'react'
-import { Card, Text, Button, Icon, Avatar } from 'react-native-elements'
+import { Card, Text, Avatar } from 'react-native-elements'
 import Router from 'next/router'
+import { useNavigation } from '@react-navigation/native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { Product } from '../../models'
 import { Platform } from 'react-native'
 import { HomeNavigationProp } from '../../navigation/types'
-import { useNavigation } from '@react-navigation/native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { PROMOTION_DETAILS } from '../../navigation/constants'
 
 interface Props {
@@ -37,20 +37,19 @@ export default function PromotionCard({ product }: Props) {
         containerStyle={{ marginHorizontal: 0 }}
       >
         <Text style={{ marginBottom: 10 }}>{product.name}</Text>
-        <Text style={{ marginBottom: 10 }}>
-          O melhor X-calabresa da cidade pelo menor preço
-        </Text>
-        <Text style={{ marginBottom: 10 }}>R$ 20,00</Text>
-        <Text style={{ marginBottom: 10 }}>R$ 15,00</Text>
+        <Text style={{ marginBottom: 10 }}>{product.description}</Text>
+        <Text style={{ marginBottom: 10 }}>R$ {product.price}</Text>
+        <Text style={{ marginBottom: 10 }}>R$ {product.promotionalPrice}</Text>
         <Avatar
           rounded
           size="small"
+          source={{ uri: product.company.logo }}
           icon={{
             type: 'font-awesome',
             name: 'building-o',
           }}
         />
-        <Text style={{ marginBottom: 10 }}>Cantinho Paulista</Text>
+        <Text style={{ marginBottom: 10 }}>{product.company.name}</Text>
       </Card>
     </TouchableOpacity>
   )

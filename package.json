@@ -16,6 +16,7 @@
     "@aws-amplify/core": "^3.2.1",
     "@aws-amplify/datastore": "^2.0.5",
     "@expo/html-elements": "^0.0.0-alpha.5",
+    "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.9",
     "@react-native-community/netinfo": "^5.7.1",
     "@react-navigation/native": "^5.1.5",
@@ -37,7 +38,8 @@
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.5.0",
     "react-native-unimodules": "~0.9.0",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "react-query": "^1.2.7"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
@@ -65,5 +67,8 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true
+  "private": true,
+  "scarfSettings": {
+    "defaultOptIn": false
+  }
 }

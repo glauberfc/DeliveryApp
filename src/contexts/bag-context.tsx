@@ -154,17 +154,17 @@ interface BagProviderProps {
 function BagProvider({ children }: BagProviderProps) {
   let bagState = initialBagState
 
-  if (typeof window !== 'undefined') {
-    const storageState = window.localStorage.getItem(STORAGE_KEY)
-    if (storageState) {
-      bagState = JSON.parse(storageState)
-    }
-  }
+  // if (typeof window !== 'undefined') {
+  //   const storageState = window.localStorage.getItem(STORAGE_KEY)
+  //   if (storageState) {
+  //     bagState = JSON.parse(storageState)
+  //   }
+  // }
 
   const [state, dispatch] = React.useReducer(bagReducer, bagState)
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    // window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [state])
 
   return (

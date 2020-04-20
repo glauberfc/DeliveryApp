@@ -8,11 +8,19 @@ import API from '@aws-amplify/api'
 
 import awsConfig from './src/aws-exports'
 import AppNavigation from './src/navigation'
+import { FiltersProvider } from './src/contexts/filters-context'
+import { BagProvider } from './src/contexts/bag-context'
 
 API.configure(awsConfig)
 
 export default function App() {
-  return <AppNavigation />
+  return (
+    <BagProvider>
+      <FiltersProvider>
+        <AppNavigation />
+      </FiltersProvider>
+    </BagProvider>
+  )
 }
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

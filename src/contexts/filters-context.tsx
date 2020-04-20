@@ -1,13 +1,20 @@
 import React from 'react'
-import { UPDATE_SELECTED_CITY } from '../constants/actions'
+import {
+  UPDATE_SELECTED_CITY,
+  UPDATE_SELECTED_CATEGORY,
+} from '../constants/actions'
 
 const FiltersStateContext = React.createContext(undefined)
 const FiltersDispatchContext = React.createContext(undefined)
 
-function cityReducer(state, action) {
+function filtersReducer(state, action) {
   switch (action.type) {
     case UPDATE_SELECTED_CITY: {
       return { ...state, cityId: action.cityId }
+    }
+
+    case UPDATE_SELECTED_CATEGORY: {
+      return { ...state, categoryId: action.categoryId }
     }
 
     default: {
@@ -21,8 +28,9 @@ interface FiltersProviderProps {
 }
 
 function FiltersProvider({ children }: FiltersProviderProps) {
-  const [state, dispatch] = React.useReducer(cityReducer, {
+  const [state, dispatch] = React.useReducer(filtersReducer, {
     cityId: null,
+    categoryId: null,
   })
 
   return (
