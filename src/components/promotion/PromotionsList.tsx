@@ -7,15 +7,15 @@ import { FlatList } from 'react-native-gesture-handler'
 import layout from '../../styles/layout'
 
 export default function PromotionsList() {
-  const [promotions, isLoading, error] = usePromotions()
+  const { promotions, isLoading, error } = usePromotions()
 
   if (isLoading) {
     return <Text accessibilityRole="text">Loading...</Text>
   }
 
-  // if (status === 'error') {
-  //   return <Text>Erro ao tentar carregar as promoções</Text>
-  // }
+  if (error) {
+    return <Text>Erro ao tentar carregar as promoções</Text>
+  }
 
   return (
     <View>

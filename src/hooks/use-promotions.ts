@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
-import API, { graphqlOperation } from '@aws-amplify/api'
+import API, { graphqlOperation, GraphQLResult } from '@aws-amplify/api'
 
 import { useFiltersState } from '../contexts/filters-context'
 import {
-  ListCompanysQuery,
-  ListProductsQuery,
-  ListProductsQueryVariables,
-  ListCompanysQueryVariables,
+  PromotionsByCategoryQuery as Query,
+  PromotionsByCategoryQueryVariables as QueryVariables,
 } from '../API'
-import { listCompanys, listProducts } from '../graphql/queries'
-import { Product } from '../../next-env'
+import { promotionsByCategory } from '../graphql/queries'
+import { Product } from '../models'
 
-export default function usePromotions(): [Product[], boolean, any] {
+interface ReturnType {
+  promotions: Product[]
+  isLoading: boolean
+  error: any
+}
+
+export default function usePromotions(): ReturnType {
   const [promotions, setPromotions] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState()
@@ -23,42 +27,29 @@ export default function usePromotions(): [Product[], boolean, any] {
         setIsLoading(true)
         const promotions = await fetchPromotions(categoryId)
         setPromotions(promotions)
-        setIsLoading(false)
       } catch (error) {
-        console.error(error)
+        console.log(error)
         setError(error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     fetchCompaniesPromotions()
   }, [categoryId])
 
-  return [promotions, isLoading, error]
+  return { promotions, isLoading, error }
 }
 
 async function fetchPromotions(categoryId?: string) {
-  if (!categoryId) {
-    const result = (await API.graphql(
-      graphqlOperation(listProducts, {
-        filter: {
-          companyCategoryId: { eq: '090683e5-b4ac-4ef5-b6a7-ff40b53cdc46' },
-          and: { isInPromotion: { eq: true } },
-        },
-      }),
-    )) as {
-      data: ListProductsQuery
-    }
+  const result = (await API.graphql(
+    graphqlOperation(promotionsByCategory, {
+      filter: {
+        companyCategoryId: { eq: categoryId },
+        isInPromotion: { eq: true },
+      },
+    } as QueryVariables),
+  )) as GraphQLResult<Query>
 
-    return result.data.listProducts.items
-  }
-
-  // const result = (await API.graphql(
-  //   graphqlOperation(promotionsByCityByCategory, {
-  //     categoryId,
-  //   } as ListCompanysQueryVariables),
-  // )) as {
-  //   data: ListCompanysQuery
-  // }
-
-  // return result.data.promotionsByCityByCategory.items
+  return result.data.promotionsByCategory.items
 }

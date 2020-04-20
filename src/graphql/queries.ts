@@ -29,9 +29,6 @@ export const getCategory = /* GraphQL */ `
     getCategory(id: $id) {
       id
       name
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `
@@ -80,9 +77,6 @@ export const getCity = /* GraphQL */ `
       id
       name
       uf
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `
@@ -189,9 +183,6 @@ export const getCompany = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `
@@ -320,9 +311,6 @@ export const getProduct = /* GraphQL */ `
       isInPromotion
       promotionalPrice
       promotionDueDate
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `
@@ -461,8 +449,8 @@ export const companiesByCityByCategory = /* GraphQL */ `
     }
   }
 `
-export const productsByCompanyCategory = /* GraphQL */ `
-  query ProductsByCompanyCategory(
+export const promotionsByCategory = /* GraphQL */ `
+  query PromotionsByCategory(
     $companyCategoryId: ID
     $promotionalPrice: ModelFloatKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -470,7 +458,7 @@ export const productsByCompanyCategory = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    productsByCompanyCategory(
+    promotionsByCategory(
       companyCategoryId: $companyCategoryId
       promotionalPrice: $promotionalPrice
       sortDirection: $sortDirection

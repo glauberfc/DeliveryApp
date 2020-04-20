@@ -48,9 +48,9 @@ type Product
   @model
   @key(name: "companyProducts", fields: ["companyId"])
   @key(
-    name: "byCompanyCategory"
+    name: "byCategory"
     fields: ["companyCategoryId", "promotionalPrice"]
-    queryField: "productsByCompanyCategory"
+    queryField: "promotionsByCategory"
   ) {
   id: ID!
   companyId: ID!

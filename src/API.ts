@@ -1452,7 +1452,7 @@ export type CompaniesByCityByCategoryQuery = {
   } | null,
 };
 
-export type ProductsByCompanyCategoryQueryVariables = {
+export type PromotionsByCategoryQueryVariables = {
   companyCategoryId?: string | null,
   promotionalPrice?: ModelFloatKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
@@ -1461,8 +1461,8 @@ export type ProductsByCompanyCategoryQueryVariables = {
   nextToken?: string | null,
 };
 
-export type ProductsByCompanyCategoryQuery = {
-  productsByCompanyCategory:  {
+export type PromotionsByCategoryQuery = {
+  promotionsByCategory:  {
     __typename: "ModelProductConnection",
     items:  Array< {
       __typename: "Product",
