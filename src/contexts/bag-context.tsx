@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import {
   ADD_PRODUCT,
@@ -7,6 +8,7 @@ import {
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
   STORAGE_KEY,
+  UPDATE_INITIAL_STATE,
 } from '../constants/actions'
 import { DUPLICATE_PRODUCT } from '../constants/messages'
 import { Product } from '../../next-env'
@@ -27,6 +29,7 @@ interface Action {
   product?: Product
   productId?: string
   quantity?: number
+  initialState?: BagState
 }
 
 type Dispatch = (action: Action) => void
@@ -71,6 +74,10 @@ function bagReducer(state: BagState, action: Action): BagState {
         ...state,
         quantitiesById: decrementProductQuantity(state.quantitiesById, action),
       }
+    }
+
+    case UPDATE_INITIAL_STATE: {
+      return action.initialState
     }
 
     default: {
@@ -152,11 +159,29 @@ interface BagProviderProps {
 }
 
 function BagProvider({ children }: BagProviderProps) {
-  const bagState = Cache.getItem(STORAGE_KEY) || initialBagState
-  const [state, dispatch] = React.useReducer(bagReducer, bagState)
+  const [state, dispatch] = React.useReducer(bagReducer, initialBagState)
 
   useEffect(() => {
-    Cache.setItem(STORAGE_KEY, state)
+    async function getStorageitem() {
+      const initialState = await AsyncStorage.getItem(STORAGE_KEY)
+
+      if (initialState) {
+        dispatch({
+          type: UPDATE_INITIAL_STATE,
+          initialState: JSON.parse(initialState),
+        })
+      }
+    }
+
+    getStorageitem()
+  }, [])
+
+  useEffect(() => {
+    async function setStorageitem() {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    }
+
+    setStorageitem()
   }, [state])
 
   return (
