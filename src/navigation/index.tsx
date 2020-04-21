@@ -5,31 +5,31 @@ enableScreens()
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { Icon, Text } from 'react-native-elements'
+import { View } from 'react-native'
 
 import HomeScreen from '../screens/main/Home'
 import { RootStackParamList, PromotionsDetailsProps } from './types'
-import { HOME, PROMOTION_DETAILS } from './constants'
+import { HOME, PROMOTION_DETAILS } from '../constants/navigation'
 import PromotionDetails from '../screens/main/PromotionDetails'
 import appInfo from '../../app.json'
-import { Icon } from 'react-native-elements'
-import { View } from 'react-native'
+import { useBagState } from '../contexts/bag-context'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-const defaultNavigationOptions = {
-  headerBackTitleVisible: false,
-  headerRight: () => (
-    <View>
-      <Icon
-        type="feather"
-        name="shopping-bag"
-        containerStyle={{ marginRight: 8 }}
-      />
-    </View>
-  ),
-}
-
 export default function AppNavigation() {
+  const state = useBagState()
+
+  const defaultNavigationOptions = {
+    headerBackTitleVisible: false,
+    headerRight: () => (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon type="feather" name="shopping-bag" />
+        <Text style={{ marginRight: 8 }}>{state.products?.length || 0}</Text>
+      </View>
+    ),
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

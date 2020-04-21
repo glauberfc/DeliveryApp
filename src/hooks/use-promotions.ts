@@ -1,55 +1,119 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import API, { graphqlOperation, GraphQLResult } from '@aws-amplify/api'
 
 import { useFiltersState } from '../contexts/filters-context'
 import {
-  PromotionsByCategoryQuery as Query,
-  PromotionsByCategoryQueryVariables as QueryVariables,
+  PromotionsByCategoryQuery as Query1,
+  PromotionsByCategoryQueryVariables as QueryVariables1,
+  ListProductsQuery as Query2,
+  ListProductsQueryVariables as QueryVariables2,
 } from '../API'
-import { promotionsByCategory } from '../graphql/queries'
+import { promotionsByCategory, listProducts } from '../graphql/queries'
 import { Product } from '../models'
+import { IDLE, LOADING, RESOLVED, REJECTED } from '../constants/status'
 
-interface ReturnType {
+interface State {
   promotions: Product[]
-  isLoading: boolean
+  status: string
   error: any
 }
 
-export default function usePromotions(): ReturnType {
-  const [promotions, setPromotions] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState()
+interface Action {
+  type: string
+  categoryId?: string
+  promotions?: Product[]
+  error?: any
+}
+
+function promotionsReducer(state: State, action: Action) {
+  switch (action.type) {
+    case LOADING: {
+      return {
+        ...state,
+        status: LOADING,
+      }
+    }
+
+    case RESOLVED: {
+      return {
+        ...state,
+        status: RESOLVED,
+        promotions: action.promotions,
+      }
+    }
+
+    case REJECTED: {
+      return {
+        ...state,
+        status: REJECTED,
+        error: action.error,
+      }
+    }
+
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`)
+    }
+  }
+}
+
+interface UsePromotionsReturn extends State {
+  isLoading: boolean
+  isResolved: boolean
+  isRejected: boolean
+}
+
+export default function usePromotions(): UsePromotionsReturn {
   const { categoryId } = useFiltersState()
+  const [state, dispatch] = useReducer(promotionsReducer, {
+    promotions: [],
+    status: IDLE,
+    error: null,
+  })
 
   useEffect(() => {
     async function fetchCompaniesPromotions() {
       try {
-        setIsLoading(true)
+        dispatch({ type: LOADING })
         const promotions = await fetchPromotions(categoryId)
-        setPromotions(promotions)
+        dispatch({ type: RESOLVED, promotions })
       } catch (error) {
         console.log(error)
-        setError(error)
-      } finally {
-        setIsLoading(false)
+        dispatch({ type: REJECTED, error })
       }
     }
 
     fetchCompaniesPromotions()
   }, [categoryId])
 
-  return { promotions, isLoading, error }
+  return {
+    isLoading: state.status === IDLE || state.status === LOADING,
+    isResolved: state.status === RESOLVED,
+    isRejected: state.status === REJECTED,
+    ...state,
+  }
 }
 
 async function fetchPromotions(categoryId?: string) {
-  const result = (await API.graphql(
-    graphqlOperation(promotionsByCategory, {
+  if (categoryId) {
+    const { data } = (await API.graphql(
+      graphqlOperation(promotionsByCategory, {
+        companyCategoryId: categoryId,
+        filter: {
+          isInPromotion: { eq: true },
+        },
+      } as QueryVariables1),
+    )) as GraphQLResult<Query1>
+
+    return data.promotionsByCategory.items
+  }
+
+  const { data } = (await API.graphql(
+    graphqlOperation(listProducts, {
       filter: {
-        companyCategoryId: { eq: categoryId },
         isInPromotion: { eq: true },
       },
-    } as QueryVariables),
-  )) as GraphQLResult<Query>
+    } as QueryVariables2),
+  )) as GraphQLResult<Query2>
 
-  return result.data.promotionsByCategory.items
+  return data.listProducts.items
 }

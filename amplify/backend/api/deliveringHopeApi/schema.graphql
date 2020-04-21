@@ -59,7 +59,7 @@ type Product
   company: Company @connection(fields: ["companyId"])
   name: String!
   description: String!
-  picture: String
+  picture: String!
   price: Float!
   isInPromotion: Boolean!
   promotionalPrice: Float

@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Product } from '../../models'
 import { Platform } from 'react-native'
 import { HomeNavigationProp } from '../../navigation/types'
-import { PROMOTION_DETAILS } from '../../navigation/constants'
+import { PROMOTION_DETAILS } from '../../constants/navigation'
 
 interface Props {
   product: Product
@@ -30,10 +30,7 @@ export default function PromotionCard({ product }: Props) {
       }}
     >
       <Card
-        image={{
-          uri:
-            'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=774&q=50',
-        }}
+        image={{ uri: product.picture }}
         containerStyle={{ marginHorizontal: 0 }}
       >
         <Text style={{ marginBottom: 10 }}>{product.name}</Text>
