@@ -1,20 +1,14 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
-import {
-  Image,
-  Avatar,
-  Divider,
-  Button,
-  Text,
-  ListItem,
-} from 'react-native-elements'
+import { StyleSheet, ScrollView, FlatList } from 'react-native'
+import { Image, Avatar, Divider, Text, ListItem } from 'react-native-elements'
 
 import layout from '../../styles/layout'
 import { PromotionsDetailsProps } from '../../navigation/types'
-import { FlatList } from 'react-native-gesture-handler'
-import PromotionItem from '../../components/promotion/PromotionDetail'
+import PromotionInfo from '../../components/promotion/PromotionInfo'
 
-export default function PromotionDetails({ route }: PromotionsDetailsProps) {
+export default function PromotionDetailsScreen({
+  route,
+}: PromotionsDetailsProps) {
   const { product } = route.params
 
   return (
@@ -23,16 +17,7 @@ export default function PromotionDetails({ route }: PromotionsDetailsProps) {
         containerStyle={{ width: 200, height: 200 }}
         source={{ uri: product.picture }}
       />
-      <PromotionItem product={product} />
-      {/* <Text h4>{product.name}</Text>
-      <Text>{product.description}</Text>
-      <Text>Selectione a quantidade</Text>
-      <Text>De {product.price}</Text>
-      <Text>Por {product.promotionalPrice}</Text>
-      <Button title="+" />
-      <Text>1</Text>
-      <Button title="-" />
-      <Button title="Adicionar" /> */}
+      <PromotionInfo product={product} />
 
       <Divider />
       <Avatar

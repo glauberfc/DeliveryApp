@@ -1,17 +1,17 @@
 import React from 'react'
+import { Button, Text } from 'react-native-elements'
+import { View } from 'react-native'
 
 import { useBagDispatch } from '../../contexts/bag-context'
 import { ADD_PRODUCT } from '../../constants/actions'
 import { Product } from '../../models'
 import useCounter from '../../hooks/use-counter'
-import { View } from 'react-native'
-import { Button, Text } from 'react-native-elements'
 
 interface Props {
   product: Product
 }
 
-export default function PromotionItem({ product }: Props) {
+export default function PromotionInfo({ product }: Props) {
   const [
     { counter },
     incrementCounter,
@@ -21,12 +21,6 @@ export default function PromotionItem({ product }: Props) {
   const bagDispatch = useBagDispatch()
 
   function addProductToBag() {
-    if (counter < 1) {
-      throw new Error(
-        'Você não pode adicionar um produto com uma quantidade menor que 1',
-      )
-    }
-
     bagDispatch({ type: ADD_PRODUCT, product, quantity: counter })
     resetCounter()
   }

@@ -5,29 +5,23 @@ enableScreens()
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Icon, Text } from 'react-native-elements'
-import { View } from 'react-native'
 
 import HomeScreen from '../screens/main/Home'
 import { RootStackParamList, PromotionsDetailsProps } from './types'
-import { HOME, PROMOTION_DETAILS } from '../constants/navigation'
-import PromotionDetails from '../screens/main/PromotionDetails'
+import { HOME, PROMOTION_DETAILS, BAG } from '../constants/navigation'
+import PromotionDetailsScreen from '../screens/main/PromotionDetails'
 import appInfo from '../../app.json'
-import { useBagState } from '../contexts/bag-context'
+import BagScreen from '../screens/bag/Bag'
+import BagIcon from '../components/bag/BagIcon'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
 export default function AppNavigation() {
-  const state = useBagState()
-
-  const defaultNavigationOptions = {
-    headerBackTitleVisible: false,
-    headerRight: () => (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon type="feather" name="shopping-bag" />
-        <Text style={{ marginRight: 8 }}>{state.products?.length || 0}</Text>
-      </View>
-    ),
+  function defaultNavigationOptions(navigation) {
+    return {
+      headerBackTitleVisible: false,
+      headerRight: () => <BagIcon navigation={navigation} />,
+    }
   }
 
   return (
@@ -36,20 +30,36 @@ export default function AppNavigation() {
         <Stack.Screen
           name={HOME}
           component={HomeScreen}
-          options={{
+          options={({ navigation }: PromotionsDetailsProps) => ({
             title: appInfo.displayName,
-            ...defaultNavigationOptions,
-          }}
+            ...defaultNavigationOptions(navigation),
+          })}
         />
         <Stack.Screen
           name={PROMOTION_DETAILS}
-          component={PromotionDetails}
-          options={({ route }: PromotionsDetailsProps) => ({
+          component={PromotionDetailsScreen}
+          options={({ route, navigation }: PromotionsDetailsProps) => ({
             title: route.params.product.name,
-            ...defaultNavigationOptions,
+            ...defaultNavigationOptions(navigation),
           })}
+        />
+        <Stack.Screen
+          name={BAG}
+          component={BagScreen}
+          options={{ title: 'Sacola', headerBackTitleVisible: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
+
+// function BagIcon({ navigate }) => (
+//   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+//     <Icon
+//       type="feather"
+//       name="shopping-bag"
+//       onPress={() => navigate(BAG)}
+//     />
+//     <Text style={{ marginRight: 8 }}>{state.products?.length || 0}</Text>
+//   </View>
+// ),

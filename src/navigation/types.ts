@@ -1,13 +1,16 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 
-import { HOME, PROMOTION_DETAILS } from '../constants/navigation'
+import { HOME, PROMOTION_DETAILS, BAG } from '../constants/navigation'
 import { Product } from '../models'
 
 export type RootStackParamList = {
   [HOME]: undefined
   [PROMOTION_DETAILS]: {
     product: Product
+  }
+  [BAG]: {
+    title: string
   }
 }
 
@@ -25,4 +28,5 @@ type PromotionDetailsRouteProp = RouteProp<
 
 export interface PromotionsDetailsProps {
   route: PromotionDetailsRouteProp
+  navigation: any
 }

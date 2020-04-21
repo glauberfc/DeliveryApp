@@ -10,8 +10,11 @@ import {
   STORAGE_KEY,
   UPDATE_INITIAL_STATE,
 } from '../constants/actions'
-import { DUPLICATE_PRODUCT } from '../constants/messages'
-import { Product } from '../../next-env'
+import {
+  ERROR_PRODUCT_QUANTITY,
+  ERROR_DUPLICATE_PRODUCT,
+} from '../constants/messages'
+import { Product } from '../models'
 
 interface BagState {
   products: Product[]
@@ -87,11 +90,15 @@ function bagReducer(state: BagState, action: Action): BagState {
 }
 
 function addProduct(state: Product[], action: Action) {
-  const { product } = action
+  const { product, quantity } = action
+
+  if (quantity < 1) {
+    throw new Error(ERROR_PRODUCT_QUANTITY)
+  }
 
   state.forEach((item) => {
     if (item.id === product.id) {
-      throw new Error(DUPLICATE_PRODUCT)
+      throw new Error(ERROR_DUPLICATE_PRODUCT)
     }
 
     return item
@@ -162,7 +169,7 @@ function BagProvider({ children }: BagProviderProps) {
   const [state, dispatch] = React.useReducer(bagReducer, initialBagState)
 
   useEffect(() => {
-    async function getStorageitem() {
+    async function getStorageItem() {
       const initialState = await AsyncStorage.getItem(STORAGE_KEY)
 
       if (initialState) {
@@ -173,15 +180,15 @@ function BagProvider({ children }: BagProviderProps) {
       }
     }
 
-    getStorageitem()
+    getStorageItem()
   }, [])
 
   useEffect(() => {
-    async function setStorageitem() {
+    async function setStorageItem() {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     }
 
-    setStorageitem()
+    setStorageItem()
   }, [state])
 
   return (
