@@ -34,6 +34,8 @@ type Company
   whatsapp: String!
   # businessHours: BusinessHours
   products: [Product!] @connection(keyName: "companyProducts", fields: ["id"])
+  deliveryTax: Float!
+  minDeliveryPrice: Float!
 }
 
 # type BusinessHours {

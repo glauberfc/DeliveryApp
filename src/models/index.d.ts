@@ -34,6 +34,8 @@ export declare class Company {
   readonly zipCode: string;
   readonly whatsapp: string;
   readonly products?: Product[];
+  readonly deliveryTax: number;
+  readonly minDeliveryPrice: number;
   constructor(init: ModelInit<Company>);
   static copyOf(source: Company, mutator: (draft: MutableModel<Company>) => MutableModel<Company> | void): Company;
 }

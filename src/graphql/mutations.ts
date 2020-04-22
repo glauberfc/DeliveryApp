@@ -143,6 +143,8 @@ export const createCompany = /* GraphQL */ `
         nextToken
         startedAt
       }
+      deliveryTax
+      minDeliveryPrice
       _version
       _deleted
       _lastChangedAt
@@ -203,6 +205,8 @@ export const updateCompany = /* GraphQL */ `
         nextToken
         startedAt
       }
+      deliveryTax
+      minDeliveryPrice
       _version
       _deleted
       _lastChangedAt
@@ -263,6 +267,8 @@ export const deleteCompany = /* GraphQL */ `
         nextToken
         startedAt
       }
+      deliveryTax
+      minDeliveryPrice
       _version
       _deleted
       _lastChangedAt
@@ -312,6 +318,8 @@ export const createProduct = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
         _version
         _deleted
         _lastChangedAt
@@ -372,6 +380,8 @@ export const updateProduct = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
         _version
         _deleted
         _lastChangedAt
@@ -432,6 +442,8 @@ export const deleteProduct = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
         _version
         _deleted
         _lastChangedAt

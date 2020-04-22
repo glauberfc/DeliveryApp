@@ -9,18 +9,20 @@ import {
   DECREMENT_QUANTITY,
   STORAGE_KEY,
   UPDATE_INITIAL_STATE,
+  CLEAR_BAG,
+  CALCULATE_TOTAL,
 } from '../constants/actions'
 import {
   ERROR_PRODUCT_QUANTITY,
   ERROR_DUPLICATE_PRODUCT,
 } from '../constants/messages'
-import { Product } from '../models'
+import { Product, Company } from '../models'
 
 interface BagState {
+  company?: Company
   products: Product[]
   quantitiesById: QuantitiesById
-  numberOfItemsInCart: number
-  total: number
+  subtotal: number
 }
 
 type QuantitiesById = {
@@ -43,40 +45,77 @@ const BagDispatchContext = React.createContext<Dispatch | undefined>(undefined)
 function bagReducer(state: BagState, action: Action): BagState {
   switch (action.type) {
     case ADD_PRODUCT: {
+      const company = addCompany(state.company, action)
+      const products = addProduct(state.products, action)
+      const quantitiesById = setQuantity(state.quantitiesById, action)
+      const subtotal = calculateTotal(products, quantitiesById)
+
       return {
         ...state,
-        products: addProduct(state.products, action),
-        quantitiesById: setQuantity(state.quantitiesById, action),
+        company,
+        products,
+        quantitiesById,
+        subtotal,
       }
     }
 
     case REMOVE_PRODUCT: {
+      const products = removeProduct(state.products, action)
+      const quantitiesById = removeQuantityById(state.quantitiesById, action)
+      const subtotal = calculateTotal(products, quantitiesById)
+
       return {
         ...state,
-        products: removeProduct(state.products, action),
-        quantitiesById: removeQuantityById(state.quantitiesById, action),
+        company: products.length > 0 ? state.company : null,
+        products,
+        quantitiesById,
+        subtotal,
       }
     }
 
     case UPDATE_QUANTITY: {
+      const quantitiesById = setQuantity(state.quantitiesById, action)
+      const subtotal = calculateTotal(state.products, quantitiesById)
+
       return {
         ...state,
-        quantitiesById: setQuantity(state.quantitiesById, action),
+        company: state.products.length > 0 ? state.company : null,
+        quantitiesById,
+        subtotal,
       }
     }
 
     case INCREMENT_QUANTITY: {
+      const quantitiesById = incrementProductQuantity(
+        state.quantitiesById,
+        action,
+      )
+      const subtotal = calculateTotal(state.products, quantitiesById)
+
       return {
         ...state,
-        quantitiesById: incrementProductQuantity(state.quantitiesById, action),
+        quantitiesById,
+        subtotal,
       }
     }
 
     case DECREMENT_QUANTITY: {
+      const quantitiesById = decrementProductQuantity(
+        state.quantitiesById,
+        action,
+      )
+      const subtotal = calculateTotal(state.products, quantitiesById)
+
       return {
         ...state,
-        quantitiesById: decrementProductQuantity(state.quantitiesById, action),
+        company: state.products.length > 0 ? state.company : null,
+        quantitiesById,
+        subtotal,
       }
+    }
+
+    case CLEAR_BAG: {
+      return { ...initialBagState }
     }
 
     case UPDATE_INITIAL_STATE: {
@@ -89,14 +128,24 @@ function bagReducer(state: BagState, action: Action): BagState {
   }
 }
 
-function addProduct(state: Product[], action: Action) {
+function addCompany(company: Company, action: Action) {
+  if (!company) {
+    const { product } = action
+
+    return product.company
+  }
+
+  return company
+}
+
+function addProduct(products: Product[], action: Action) {
   const { product, quantity } = action
 
   if (quantity < 1) {
     throw new Error(ERROR_PRODUCT_QUANTITY)
   }
 
-  state.forEach((item) => {
+  products.forEach((item) => {
     if (item.id === product.id) {
       throw new Error(ERROR_DUPLICATE_PRODUCT)
     }
@@ -104,61 +153,73 @@ function addProduct(state: Product[], action: Action) {
     return item
   })
 
-  return [...state, product]
+  return [...products, product]
 }
 
-function removeProduct(state: Product[], action: Action) {
+function removeProduct(products: Product[], action: Action) {
   const { productId } = action
 
-  return state.filter((item) => item.id !== productId)
+  return products.filter((item) => item.id !== productId)
 }
 
-function setQuantity(state: QuantitiesById, action: Action) {
+function setQuantity(quantities: QuantitiesById, action: Action) {
   const { product, quantity } = action
 
   return {
-    ...state,
+    ...quantities,
     [product.id]: quantity,
   }
 }
 
-function incrementProductQuantity(state: QuantitiesById, action: Action) {
+function calculateTotal(products: Product[], quantitiesById: QuantitiesById) {
+  const subtotalAmount = products.reduce((prevValue, currProduct) => {
+    prevValue += currProduct.isInPromotion
+      ? currProduct.promotionalPrice * quantitiesById[currProduct.id]
+      : currProduct.price * quantitiesById[currProduct.id]
+
+    return prevValue
+  }, 0)
+
+  return subtotalAmount
+}
+
+function incrementProductQuantity(quantities: QuantitiesById, action: Action) {
   const { productId } = action
 
   return {
-    ...state,
-    [productId]: state[productId] + 1,
+    ...quantities,
+    [productId]: quantities[productId] + 1,
   }
 }
 
-function decrementProductQuantity(state: QuantitiesById, action: Action) {
+function decrementProductQuantity(quantities: QuantitiesById, action: Action) {
   const { productId } = action
 
-  if (state[productId] === 1) {
-    const quantitiesById = { ...state }
+  if (quantities[productId] === 1) {
+    const quantitiesById = { ...quantities }
     delete quantitiesById[productId]
     return quantitiesById
   }
 
   return {
-    ...state,
-    [productId]: state[productId] <= 1 ? 0 : state[productId] - 1,
+    ...quantities,
+    [productId]: quantities[productId] - 1,
   }
 }
 
-function removeQuantityById(state: QuantitiesById, action: Action) {
+function removeQuantityById(quantities: QuantitiesById, action: Action) {
   const { productId } = action
 
-  const quantitiesById = { ...state }
+  const quantitiesById = { ...quantities }
   delete quantitiesById[productId]
   return quantitiesById
 }
 
 const initialBagState = {
+  company: null,
   products: [],
   quantitiesById: {},
-  numberOfItemsInCart: 0,
-  total: 0,
+  subtotal: 0,
 }
 
 interface BagProviderProps {

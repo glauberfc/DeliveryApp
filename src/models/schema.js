@@ -179,6 +179,20 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "company"
                     }
+                },
+                "deliveryTax": {
+                    "name": "deliveryTax",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "minDeliveryPrice": {
+                    "name": "minDeliveryPrice",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -330,5 +344,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "75ec6b98bb60d080df63cd2d0b50d4cd"
+    "version": "ab846a26442c8e95e4aae05bc4eb0970"
 };

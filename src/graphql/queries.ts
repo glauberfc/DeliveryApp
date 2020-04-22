@@ -137,6 +137,8 @@ export const syncCompanies = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
       }
       nextToken
       startedAt
@@ -185,6 +187,8 @@ export const getCompany = /* GraphQL */ `
         nextToken
         startedAt
       }
+      deliveryTax
+      minDeliveryPrice
     }
   }
 `
@@ -222,6 +226,8 @@ export const listCompanys = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
       }
       nextToken
       startedAt
@@ -260,6 +266,8 @@ export const syncProducts = /* GraphQL */ `
           address
           zipCode
           whatsapp
+          deliveryTax
+          minDeliveryPrice
         }
         name
         description
@@ -308,6 +316,8 @@ export const getProduct = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
       }
       name
       description
@@ -345,6 +355,8 @@ export const listProducts = /* GraphQL */ `
           address
           zipCode
           whatsapp
+          deliveryTax
+          minDeliveryPrice
         }
         name
         description
@@ -401,6 +413,8 @@ export const companiesBySlug = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
       }
       nextToken
       startedAt
@@ -451,6 +465,8 @@ export const companiesByCityByCategory = /* GraphQL */ `
           nextToken
           startedAt
         }
+        deliveryTax
+        minDeliveryPrice
       }
       nextToken
       startedAt
@@ -493,6 +509,8 @@ export const promotionsByCategory = /* GraphQL */ `
           address
           zipCode
           whatsapp
+          deliveryTax
+          minDeliveryPrice
         }
         name
         description
