@@ -32,6 +32,7 @@ export declare class Company {
   readonly city?: City;
   readonly address: string;
   readonly zipCode: string;
+  readonly whatsapp: string;
   readonly products?: Product[];
   constructor(init: ModelInit<Company>);
   static copyOf(source: Company, mutator: (draft: MutableModel<Company>) => MutableModel<Company> | void): Company;
@@ -44,7 +45,7 @@ export declare class Product {
   readonly company?: Company;
   readonly name: string;
   readonly description: string;
-  readonly picture?: string;
+  readonly picture: string;
   readonly price: number;
   readonly isInPromotion: boolean;
   readonly promotionalPrice?: number;

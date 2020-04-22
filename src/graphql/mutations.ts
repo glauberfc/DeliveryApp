@@ -122,6 +122,7 @@ export const createCompany = /* GraphQL */ `
       }
       address
       zipCode
+      whatsapp
       products {
         items {
           id
@@ -181,6 +182,7 @@ export const updateCompany = /* GraphQL */ `
       }
       address
       zipCode
+      whatsapp
       products {
         items {
           id
@@ -240,6 +242,7 @@ export const deleteCompany = /* GraphQL */ `
       }
       address
       zipCode
+      whatsapp
       products {
         items {
           id
@@ -304,6 +307,7 @@ export const createProduct = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -363,6 +367,7 @@ export const updateProduct = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -422,6 +427,7 @@ export const deleteProduct = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt

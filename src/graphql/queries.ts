@@ -132,6 +132,7 @@ export const syncCompanies = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -166,6 +167,7 @@ export const getCompany = /* GraphQL */ `
       }
       address
       zipCode
+      whatsapp
       products {
         items {
           id
@@ -215,6 +217,7 @@ export const listCompanys = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -256,6 +259,7 @@ export const syncProducts = /* GraphQL */ `
           cover
           address
           zipCode
+          whatsapp
         }
         name
         description
@@ -299,6 +303,7 @@ export const getProduct = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -339,6 +344,7 @@ export const listProducts = /* GraphQL */ `
           cover
           address
           zipCode
+          whatsapp
         }
         name
         description
@@ -390,6 +396,7 @@ export const companiesBySlug = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -439,6 +446,7 @@ export const companiesByCityByCategory = /* GraphQL */ `
         }
         address
         zipCode
+        whatsapp
         products {
           nextToken
           startedAt
@@ -484,6 +492,7 @@ export const promotionsByCategory = /* GraphQL */ `
           cover
           address
           zipCode
+          whatsapp
         }
         name
         description

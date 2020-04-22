@@ -21,6 +21,7 @@ export type ModelCompanyFilterInput = {
   cover?: ModelStringInput | null,
   address?: ModelStringInput | null,
   zipCode?: ModelStringInput | null,
+  whatsapp?: ModelStringInput | null,
   and?: Array< ModelCompanyFilterInput | null > | null,
   or?: Array< ModelCompanyFilterInput | null > | null,
   not?: ModelCompanyFilterInput | null,
@@ -148,6 +149,7 @@ export type CreateCompanyInput = {
   city?: CityInput | null,
   address: string,
   zipCode: string,
+  whatsapp: string,
   _version?: number | null,
 };
 
@@ -180,6 +182,7 @@ export type ModelCompanyConditionInput = {
   cover?: ModelStringInput | null,
   address?: ModelStringInput | null,
   zipCode?: ModelStringInput | null,
+  whatsapp?: ModelStringInput | null,
   and?: Array< ModelCompanyConditionInput | null > | null,
   or?: Array< ModelCompanyConditionInput | null > | null,
   not?: ModelCompanyConditionInput | null,
@@ -200,6 +203,7 @@ export type UpdateCompanyInput = {
   city?: CityInput | null,
   address?: string | null,
   zipCode?: string | null,
+  whatsapp?: string | null,
   _version?: number | null,
 };
 
@@ -239,6 +243,7 @@ export type CompanyInput = {
   city?: CityInput | null,
   address: string,
   zipCode: string,
+  whatsapp: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
@@ -527,6 +532,7 @@ export type CreateCompanyMutation = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -592,6 +598,7 @@ export type UpdateCompanyMutation = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -657,6 +664,7 @@ export type DeleteCompanyMutation = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -728,6 +736,7 @@ export type CreateProductMutation = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -793,6 +802,7 @@ export type UpdateProductMutation = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -858,6 +868,7 @@ export type DeleteProductMutation = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1044,6 +1055,7 @@ export type SyncCompaniesQuery = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1094,6 +1106,7 @@ export type GetCompanyQuery = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -1162,6 +1175,7 @@ export type ListCompanysQuery = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1206,6 +1220,7 @@ export type SyncProductsQuery = {
         cover: string | null,
         address: string,
         zipCode: string,
+        whatsapp: string,
         _version: number,
         _deleted: boolean | null,
         _lastChangedAt: number,
@@ -1268,6 +1283,7 @@ export type GetProductQuery = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1319,6 +1335,7 @@ export type ListProductsQuery = {
         cover: string | null,
         address: string,
         zipCode: string,
+        whatsapp: string,
         _version: number,
         _deleted: boolean | null,
         _lastChangedAt: number,
@@ -1381,6 +1398,7 @@ export type CompaniesBySlugQuery = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1438,6 +1456,7 @@ export type CompaniesByCityByCategoryQuery = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1484,6 +1503,7 @@ export type PromotionsByCategoryQuery = {
         cover: string | null,
         address: string,
         zipCode: string,
+        whatsapp: string,
         _version: number,
         _deleted: boolean | null,
         _lastChangedAt: number,
@@ -1605,6 +1625,7 @@ export type OnCreateCompanySubscription = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -1665,6 +1686,7 @@ export type OnUpdateCompanySubscription = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -1725,6 +1747,7 @@ export type OnDeleteCompanySubscription = {
     } | null,
     address: string,
     zipCode: string,
+    whatsapp: string,
     products:  {
       __typename: "ModelProductConnection",
       items:  Array< {
@@ -1791,6 +1814,7 @@ export type OnCreateProductSubscription = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1851,6 +1875,7 @@ export type OnUpdateProductSubscription = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,
@@ -1911,6 +1936,7 @@ export type OnDeleteProductSubscription = {
       } | null,
       address: string,
       zipCode: string,
+      whatsapp: string,
       products:  {
         __typename: "ModelProductConnection",
         nextToken: string | null,

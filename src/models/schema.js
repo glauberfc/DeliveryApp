@@ -160,6 +160,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "whatsapp": {
+                    "name": "whatsapp",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "products": {
                     "name": "products",
                     "isArray": true,
@@ -259,7 +266,7 @@ export const schema = {
                     "name": "picture",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "price": {
@@ -310,12 +317,12 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byCompanyCategory",
+                        "name": "byCategory",
                         "fields": [
                             "companyCategoryId",
                             "promotionalPrice"
                         ],
-                        "queryField": "productsByCompanyCategory"
+                        "queryField": "promotionsByCategory"
                     }
                 }
             ]
@@ -323,5 +330,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "357717f72992041f46d7ca4822f3a670"
+    "version": "75ec6b98bb60d080df63cd2d0b50d4cd"
 };
