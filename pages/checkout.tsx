@@ -4,7 +4,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io'
 import Layout from '../src/components/Layout'
 import SEO from '../src/components/SEO'
 import { useBagState } from '../src/contexts/bag-context'
-import ListItem from '../src/components/checkout/ListItem'
+import BagProductItem from '../src/components/bag/BagProductItem'
 
 export default function CheckoutPage() {
   const { products } = useBagState()
@@ -21,7 +21,7 @@ export default function CheckoutPage() {
       <h1 className="font-bold">Checkout:</h1>
       <ul>
         {products.map((item) => (
-          <ListItem key={item.id} product={item} />
+          <BagProductItem key={item.id} product={item} />
         ))}
       </ul>
       <div>

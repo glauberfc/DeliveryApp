@@ -12,7 +12,7 @@ interface Props {
   product: Product
 }
 
-export default function ListItem({ product }: Props) {
+export default function CheckoutItem({ product }: Props) {
   const { quantitiesById } = useBagState()
   const dispatch = useBagDispatch()
 
