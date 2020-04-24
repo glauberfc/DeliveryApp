@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, ScrollView, TextInput } from 'react-native'
+import { View, StyleSheet, Text, ScrollView, Linking } from 'react-native'
 import { Button, Input, CheckBox, Divider } from 'react-native-elements'
 import { Formik, useFormik } from 'formik'
 
@@ -7,34 +7,56 @@ import layout from '../../styles/layout'
 import { useBagState, useBagDispatch } from '../../contexts/bag-context'
 import BagProductItem from '../../components/bag/BagProductItem'
 import { CLEAR_BAG } from '../../constants/actions'
+import { displayName } from '../../../app.json'
 
 interface InitialValues {
   fullName: string
-  pickUp: boolean
-  deliver: boolean
+  deliveryMethod: 'pickup' | 'delivery'
   address?: string
-  paymentMethod: 1 | 2 | 3
+  paymentMethod: 'credit' | 'debit' | 'cash'
   changeCache: string
 }
 
 export default function BagScreen() {
-  const { company, products, subtotal } = useBagState()
+  const { company, products, subtotal, quantitiesById } = useBagState()
   const dispatch = useBagDispatch()
-  const { handleChange, handleSubmit, setFieldValue, values } = useFormik<
-    InitialValues
-  >({
+
+  const { handleSubmit, setFieldValue, values } = useFormik<InitialValues>({
     initialValues: {
       fullName: undefined,
-      pickUp: undefined,
-      deliver: undefined,
+      deliveryMethod: undefined,
       address: undefined,
       paymentMethod: undefined,
       changeCache: undefined,
     },
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      await Linking.openURL(
+        `https://api.whatsapp.com/send?phone=${
+          company.whatsapp
+        }&text=${encodeURI(`
+            *Pedido realizado através do app ${displayName}*
+
+            ${getFormatedProducts()}
+            
+            Subtotal: R$ ${subtotal}
+            Taxa de entrega: R$ ${company.deliveryTax}
+            Total: R$ ${subtotal > 0 ? subtotal + company.deliveryTax : 0}
+        `)}`,
+      )
     },
   })
+
+  function getFormatedProducts() {
+    let productsData = ''
+
+    products.forEach((item) => {
+      productsData += `${quantitiesById[item.id]} - ${item.name}: R$ ${
+        item.isInPromotion ? item.promotionalPrice : item.price
+      }`
+    })
+
+    return productsData
+  }
 
   function clearBag() {
     dispatch({ type: CLEAR_BAG })
@@ -79,23 +101,45 @@ export default function BagScreen() {
         onChangeText={(text) => setFieldValue('fullName', text)}
       />
 
-      <CheckBox title="Retirar no local" checked={true} />
-      <CheckBox title="Entregar no endereço abaixo" checked={true} />
+      <CheckBox
+        title="Retirar no local"
+        checked={values.deliveryMethod === 'pickup'}
+        onPress={() => setFieldValue('deliveryMethod', 'pickup')}
+      />
+      <CheckBox
+        title="Entregar no endereço abaixo"
+        checked={values.deliveryMethod === 'delivery'}
+        onPress={() => setFieldValue('deliveryMethod', 'delivery')}
+      />
       <Text>Endereço completo</Text>
       <Input
-        placeholder=""
+        placeholder="Rua, número, bairro"
         value={values.address}
+        disabled={values.deliveryMethod === 'pickup'}
         onChangeText={(text) => setFieldValue('address', text)}
       />
 
       <Text>Forma de pagamento</Text>
-      <CheckBox title="Cartão de crédito" checked={true} />
-      <CheckBox title="Cartão de débito" checked={true} />
-      <CheckBox title="Dinheiro" checked={true} />
+      <CheckBox
+        title="Cartão de crédito"
+        checked={values.paymentMethod === 'credit'}
+        onPress={() => setFieldValue('paymentMethod', 'credit')}
+      />
+      <CheckBox
+        title="Cartão de débito"
+        checked={values.paymentMethod === 'debit'}
+        onPress={() => setFieldValue('paymentMethod', 'debit')}
+      />
+      <CheckBox
+        title="Dinheiro"
+        checked={values.paymentMethod === 'cash'}
+        onPress={() => setFieldValue('paymentMethod', 'cash')}
+      />
       <Text>Troco para</Text>
       <Input
-        placeholder=""
+        placeholder="R$ 20,00"
         value={values.changeCache}
+        disabled={values.paymentMethod !== 'cash'}
         onChangeText={(text) => setFieldValue('changeCache', text)}
       />
 
@@ -103,7 +147,7 @@ export default function BagScreen() {
         containerStyle={{ marginTop: 16 }}
         title="Enviar pedido"
         disabled={subtotal < company.minDeliveryPrice}
-        onPress={() => handleSubmit()}
+        onPress={handleSubmit}
       />
     </ScrollView>
   )
