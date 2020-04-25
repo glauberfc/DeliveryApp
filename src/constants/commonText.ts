@@ -1,0 +1,5 @@
+export const PICKUP = 'Retirar no local'
+export const DELIVERY_AT = 'Entregar no endereço abaixo'
+export const CREDIT_CARD = 'Cartão de crédito'
+export const DEBIT_CARD = 'Cartão de débito'
+export const CASH = 'Dinheiro'

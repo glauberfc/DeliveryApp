@@ -10,7 +10,7 @@ import {
   STORAGE_KEY,
   UPDATE_INITIAL_STATE,
   CLEAR_BAG,
-  CALCULATE_TOTAL,
+  SEND_ORDER,
 } from '../constants/actions'
 import {
   ERROR_PRODUCT_QUANTITY,
@@ -23,6 +23,7 @@ interface BagState {
   products: Product[]
   quantitiesById: QuantitiesById
   subtotal: number
+  status: 'IDLE' | 'SENDING'
 }
 
 type QuantitiesById = {
@@ -38,6 +39,18 @@ interface Action {
 }
 
 type Dispatch = (action: Action) => void
+
+interface BagProviderProps {
+  children: React.ReactNode
+}
+
+const initialBagState: BagState = {
+  company: null,
+  products: [],
+  quantitiesById: {},
+  subtotal: 0,
+  status: 'IDLE',
+}
 
 const BagStateContext = React.createContext<BagState | undefined>(undefined)
 const BagDispatchContext = React.createContext<Dispatch | undefined>(undefined)
@@ -120,6 +133,13 @@ function bagReducer(state: BagState, action: Action): BagState {
 
     case UPDATE_INITIAL_STATE: {
       return action.initialState
+    }
+
+    case SEND_ORDER: {
+      return {
+        ...state,
+        status: 'SENDING',
+      }
     }
 
     default: {
@@ -213,17 +233,6 @@ function removeQuantityById(quantities: QuantitiesById, action: Action) {
   const quantitiesById = { ...quantities }
   delete quantitiesById[productId]
   return quantitiesById
-}
-
-const initialBagState = {
-  company: null,
-  products: [],
-  quantitiesById: {},
-  subtotal: 0,
-}
-
-interface BagProviderProps {
-  children: React.ReactNode
 }
 
 function BagProvider({ children }: BagProviderProps) {

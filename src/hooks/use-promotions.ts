@@ -14,8 +14,15 @@ import { IDLE, LOADING, RESOLVED, REJECTED } from '../constants/status'
 
 interface State {
   promotions: Product[]
-  status: string
+  status: Status
   error: any
+}
+
+enum Status {
+  IDLE,
+  LOADING,
+  RESOLVED,
+  REJECTED,
 }
 
 interface Action {

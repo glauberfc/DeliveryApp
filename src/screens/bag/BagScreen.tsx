@@ -1,19 +1,19 @@
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView, Linking } from 'react-native'
 import { Button, Input, CheckBox, Divider } from 'react-native-elements'
-import { Formik, useFormik } from 'formik'
+import { useFormik } from 'formik'
 
 import layout from '../../styles/layout'
 import { useBagState, useBagDispatch } from '../../contexts/bag-context'
 import BagProductItem from '../../components/bag/BagProductItem'
 import { CLEAR_BAG } from '../../constants/actions'
-import { displayName } from '../../../app.json'
+import getSendMessageLink from '../../utils/getSendMessageLik'
 
 interface InitialValues {
   fullName: string
-  deliveryMethod: 'pickup' | 'delivery'
+  deliveryMethod: 'PICKUP' | 'DELIVERY'
   address?: string
-  paymentMethod: 'credit' | 'debit' | 'cash'
+  paymentMethod: 'CREDIT' | 'DEBIT' | 'CASH'
   changeCache: string
 }
 
@@ -31,32 +31,16 @@ export default function BagScreen() {
     },
     onSubmit: async (values) => {
       await Linking.openURL(
-        `https://api.whatsapp.com/send?phone=${
-          company.whatsapp
-        }&text=${encodeURI(`
-            *Pedido realizado através do app ${displayName}*
-
-            ${getFormatedProducts()}
-            
-            Subtotal: R$ ${subtotal}
-            Taxa de entrega: R$ ${company.deliveryTax}
-            Total: R$ ${subtotal > 0 ? subtotal + company.deliveryTax : 0}
-        `)}`,
+        getSendMessageLink({
+          company,
+          products,
+          values,
+          subtotal,
+          quantitiesById,
+        }),
       )
     },
   })
-
-  function getFormatedProducts() {
-    let productsData = ''
-
-    products.forEach((item) => {
-      productsData += `${quantitiesById[item.id]} - ${item.name}: R$ ${
-        item.isInPromotion ? item.promotionalPrice : item.price
-      }`
-    })
-
-    return productsData
-  }
 
   function clearBag() {
     dispatch({ type: CLEAR_BAG })
@@ -103,50 +87,54 @@ export default function BagScreen() {
 
       <CheckBox
         title="Retirar no local"
-        checked={values.deliveryMethod === 'pickup'}
-        onPress={() => setFieldValue('deliveryMethod', 'pickup')}
+        checked={values.deliveryMethod === 'PICKUP'}
+        onPress={() => setFieldValue('deliveryMethod', 'PICKUP')}
       />
       <CheckBox
         title="Entregar no endereço abaixo"
-        checked={values.deliveryMethod === 'delivery'}
-        onPress={() => setFieldValue('deliveryMethod', 'delivery')}
+        checked={values.deliveryMethod === 'DELIVERY'}
+        onPress={() => setFieldValue('deliveryMethod', 'DELIVERY')}
       />
       <Text>Endereço completo</Text>
       <Input
         placeholder="Rua, número, bairro"
         value={values.address}
-        disabled={values.deliveryMethod === 'pickup'}
+        disabled={values.deliveryMethod === 'PICKUP'}
         onChangeText={(text) => setFieldValue('address', text)}
       />
 
       <Text>Forma de pagamento</Text>
       <CheckBox
         title="Cartão de crédito"
-        checked={values.paymentMethod === 'credit'}
-        onPress={() => setFieldValue('paymentMethod', 'credit')}
+        checked={values.paymentMethod === 'CREDIT'}
+        onPress={() => setFieldValue('paymentMethod', 'CREDIT')}
       />
       <CheckBox
         title="Cartão de débito"
-        checked={values.paymentMethod === 'debit'}
-        onPress={() => setFieldValue('paymentMethod', 'debit')}
+        checked={values.paymentMethod === 'DEBIT'}
+        onPress={() => setFieldValue('paymentMethod', 'DEBIT')}
       />
       <CheckBox
         title="Dinheiro"
-        checked={values.paymentMethod === 'cash'}
-        onPress={() => setFieldValue('paymentMethod', 'cash')}
+        checked={values.paymentMethod === 'CASH'}
+        onPress={() => setFieldValue('paymentMethod', 'CASH')}
       />
       <Text>Troco para</Text>
       <Input
         placeholder="R$ 20,00"
         value={values.changeCache}
-        disabled={values.paymentMethod !== 'cash'}
+        disabled={values.paymentMethod !== 'CASH'}
         onChangeText={(text) => setFieldValue('changeCache', text)}
       />
 
       <Button
         containerStyle={{ marginTop: 16 }}
         title="Enviar pedido"
-        disabled={subtotal < company.minDeliveryPrice}
+        disabled={
+          subtotal < company.minDeliveryPrice ||
+          !values.deliveryMethod ||
+          !values.paymentMethod
+        }
         onPress={handleSubmit}
       />
     </ScrollView>

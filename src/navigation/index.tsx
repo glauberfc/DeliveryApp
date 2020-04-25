@@ -6,12 +6,12 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import HomeScreen from '../screens/main/Home'
+import HomeScreen from '../screens/main/HomeScreen'
 import { RootStackParamList, PromotionsDetailsProps } from './types'
 import { HOME, PROMOTION_DETAILS, BAG } from '../constants/navigation'
-import PromotionDetailsScreen from '../screens/main/PromotionDetails'
+import PromotionDetailsScreen from '../screens/main/PromotionDetailsScreen'
 import appInfo from '../../app.json'
-import BagScreen from '../screens/bag/Bag'
+import BagScreen from '../screens/bag/BagScreen'
 import BagIcon from '../components/bag/BagIcon'
 
 const Stack = createStackNavigator<RootStackParamList>()
