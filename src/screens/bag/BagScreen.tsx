@@ -1,12 +1,18 @@
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView, Linking } from 'react-native'
-import { Button, Input, CheckBox, Divider } from 'react-native-elements'
+import {
+  Button,
+  Input,
+  CheckBox,
+  Divider,
+  Overlay,
+} from 'react-native-elements'
 import { useFormik } from 'formik'
 
 import layout from '../../styles/layout'
 import { useBagState, useBagDispatch } from '../../contexts/bag-context'
 import BagProductItem from '../../components/bag/BagProductItem'
-import { CLEAR_BAG } from '../../constants/actions'
+import { CLEAR_BAG, SEND_ORDER } from '../../constants/actions'
 import getSendMessageLink from '../../utils/getSendMessageLik'
 
 interface InitialValues {
@@ -18,7 +24,7 @@ interface InitialValues {
 }
 
 export default function BagScreen() {
-  const { company, products, subtotal, quantitiesById } = useBagState()
+  const { company, products, subtotal, quantitiesById, status } = useBagState()
   const dispatch = useBagDispatch()
 
   const { handleSubmit, setFieldValue, values } = useFormik<InitialValues>({
@@ -30,6 +36,7 @@ export default function BagScreen() {
       changeCache: undefined,
     },
     onSubmit: async (values) => {
+      dispatch({ type: SEND_ORDER })
       await Linking.openURL(
         getSendMessageLink({
           company,
@@ -56,6 +63,22 @@ export default function BagScreen() {
 
   return (
     <ScrollView style={styles.container}>
+      <Overlay
+        animationType="fade"
+        isVisible={status === 'SENDING'}
+        height="auto"
+      >
+        <>
+          <Text>Atenção</Text>
+          <Text>
+            Se o seu pedido para {company.name} foi enviado corretamente,
+            esvazie sua sacola, caso contrário, envie o seu pedido novamente
+          </Text>
+          <Button title="Esvaziar a sacola" onPress={clearBag} />
+          <Button title="Enviar o pedido novamente" onPress={handleSubmit} />
+        </>
+      </Overlay>
+
       <Text>{company.name}</Text>
 
       <Divider />
