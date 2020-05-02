@@ -1,7 +1,66 @@
-// tslint:disable
-// eslint-disable
+/* tslint:disable */
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const listOtherCompanyProducts = /* GraphQL */ `
+  query ListOtherCompanyProducts {
+    listOtherCompanyProducts {
+      id
+      companyId
+      companyCategoryId
+      menuSection
+      company {
+        id
+        cityId
+        categoryId
+        _cityId
+        _categoryId
+        slug
+        name
+        tagline
+        logo
+        cover
+        category {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        city {
+          id
+          name
+          uf
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        address
+        zipCode
+        whatsapp
+        products {
+          nextToken
+          startedAt
+        }
+        deliveryTax
+        minDeliveryPrice
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      picture
+      price
+      isInPromotion
+      promotionalPrice
+      promotionDueDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const syncCategories = /* GraphQL */ `
   query SyncCategories(
     $filter: ModelCategoryFilterInput
@@ -18,20 +77,26 @@ export const syncCategories = /* GraphQL */ `
       items {
         id
         name
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const getCategory = /* GraphQL */ `
   query GetCategory($id: ID!) {
     getCategory(id: $id) {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
-`
+`;
 export const listCategorys = /* GraphQL */ `
   query ListCategorys(
     $filter: ModelCategoryFilterInput
@@ -42,12 +107,15 @@ export const listCategorys = /* GraphQL */ `
       items {
         id
         name
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const syncCities = /* GraphQL */ `
   query SyncCities(
     $filter: ModelCityFilterInput
@@ -65,21 +133,27 @@ export const syncCities = /* GraphQL */ `
         id
         name
         uf
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const getCity = /* GraphQL */ `
   query GetCity($id: ID!) {
     getCity(id: $id) {
       id
       name
       uf
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
-`
+`;
 export const listCitys = /* GraphQL */ `
   query ListCitys(
     $filter: ModelCityFilterInput
@@ -91,12 +165,15 @@ export const listCitys = /* GraphQL */ `
         id
         name
         uf
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const syncCompanies = /* GraphQL */ `
   query SyncCompanies(
     $filter: ModelCompanyFilterInput
@@ -124,11 +201,17 @@ export const syncCompanies = /* GraphQL */ `
         category {
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
         }
         city {
           id
           name
           uf
+          _version
+          _deleted
+          _lastChangedAt
         }
         address
         zipCode
@@ -139,12 +222,15 @@ export const syncCompanies = /* GraphQL */ `
         }
         deliveryTax
         minDeliveryPrice
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const getCompany = /* GraphQL */ `
   query GetCompany($id: ID!) {
     getCompany(id: $id) {
@@ -161,11 +247,17 @@ export const getCompany = /* GraphQL */ `
       category {
         id
         name
+        _version
+        _deleted
+        _lastChangedAt
       }
       city {
         id
         name
         uf
+        _version
+        _deleted
+        _lastChangedAt
       }
       address
       zipCode
@@ -183,15 +275,21 @@ export const getCompany = /* GraphQL */ `
           isInPromotion
           promotionalPrice
           promotionDueDate
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
         startedAt
       }
       deliveryTax
       minDeliveryPrice
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
-`
+`;
 export const listCompanys = /* GraphQL */ `
   query ListCompanys(
     $filter: ModelCompanyFilterInput
@@ -213,11 +311,17 @@ export const listCompanys = /* GraphQL */ `
         category {
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
         }
         city {
           id
           name
           uf
+          _version
+          _deleted
+          _lastChangedAt
         }
         address
         zipCode
@@ -228,12 +332,15 @@ export const listCompanys = /* GraphQL */ `
         }
         deliveryTax
         minDeliveryPrice
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const syncProducts = /* GraphQL */ `
   query SyncProducts(
     $filter: ModelProductFilterInput
@@ -268,6 +375,9 @@ export const syncProducts = /* GraphQL */ `
           whatsapp
           deliveryTax
           minDeliveryPrice
+          _version
+          _deleted
+          _lastChangedAt
         }
         name
         description
@@ -276,12 +386,15 @@ export const syncProducts = /* GraphQL */ `
         isInPromotion
         promotionalPrice
         promotionDueDate
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const getProduct = /* GraphQL */ `
   query GetProduct($id: ID!) {
     getProduct(id: $id) {
@@ -303,11 +416,17 @@ export const getProduct = /* GraphQL */ `
         category {
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
         }
         city {
           id
           name
           uf
+          _version
+          _deleted
+          _lastChangedAt
         }
         address
         zipCode
@@ -318,6 +437,9 @@ export const getProduct = /* GraphQL */ `
         }
         deliveryTax
         minDeliveryPrice
+        _version
+        _deleted
+        _lastChangedAt
       }
       name
       description
@@ -326,9 +448,12 @@ export const getProduct = /* GraphQL */ `
       isInPromotion
       promotionalPrice
       promotionDueDate
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
-`
+`;
 export const listProducts = /* GraphQL */ `
   query ListProducts(
     $filter: ModelProductFilterInput
@@ -357,6 +482,9 @@ export const listProducts = /* GraphQL */ `
           whatsapp
           deliveryTax
           minDeliveryPrice
+          _version
+          _deleted
+          _lastChangedAt
         }
         name
         description
@@ -365,12 +493,15 @@ export const listProducts = /* GraphQL */ `
         isInPromotion
         promotionalPrice
         promotionDueDate
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const companiesBySlug = /* GraphQL */ `
   query CompaniesBySlug(
     $slug: String
@@ -400,11 +531,17 @@ export const companiesBySlug = /* GraphQL */ `
         category {
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
         }
         city {
           id
           name
           uf
+          _version
+          _deleted
+          _lastChangedAt
         }
         address
         zipCode
@@ -415,12 +552,15 @@ export const companiesBySlug = /* GraphQL */ `
         }
         deliveryTax
         minDeliveryPrice
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const companiesByCityByCategory = /* GraphQL */ `
   query CompaniesByCityByCategory(
     $cityId: ID
@@ -452,11 +592,17 @@ export const companiesByCityByCategory = /* GraphQL */ `
         category {
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
         }
         city {
           id
           name
           uf
+          _version
+          _deleted
+          _lastChangedAt
         }
         address
         zipCode
@@ -467,12 +613,15 @@ export const companiesByCityByCategory = /* GraphQL */ `
         }
         deliveryTax
         minDeliveryPrice
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;
 export const promotionsByCategory = /* GraphQL */ `
   query PromotionsByCategory(
     $companyCategoryId: ID
@@ -511,6 +660,9 @@ export const promotionsByCategory = /* GraphQL */ `
           whatsapp
           deliveryTax
           minDeliveryPrice
+          _version
+          _deleted
+          _lastChangedAt
         }
         name
         description
@@ -519,9 +671,12 @@ export const promotionsByCategory = /* GraphQL */ `
         isInPromotion
         promotionalPrice
         promotionDueDate
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
     }
   }
-`
+`;

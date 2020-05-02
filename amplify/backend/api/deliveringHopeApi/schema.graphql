@@ -68,3 +68,8 @@ type Product
   promotionalPrice: Float
   promotionDueDate: AWSDateTime
 }
+
+type Query {
+  listOtherCompanyProducts: [Product!]
+    @function(name: "listOtherCompanyProducts-${env}")
+}
