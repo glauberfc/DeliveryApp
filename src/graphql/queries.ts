@@ -3,61 +3,44 @@
 // this is an auto generated file. This will be overwritten
 
 export const listOtherCompanyProducts = /* GraphQL */ `
-  query ListOtherCompanyProducts {
-    listOtherCompanyProducts {
-      id
-      companyId
-      companyCategoryId
-      menuSection
-      company {
+  query ListOtherCompanyProducts($companyId: ID!, $productId: ID!) {
+    listOtherCompanyProducts(companyId: $companyId, productId: $productId) {
+      items {
         id
-        cityId
-        categoryId
-        _cityId
-        _categoryId
-        slug
+        companyId
+        companyCategoryId
+        menuSection
+        company {
+          id
+          cityId
+          categoryId
+          _cityId
+          _categoryId
+          slug
+          name
+          tagline
+          logo
+          cover
+          address
+          zipCode
+          whatsapp
+          deliveryTax
+          minDeliveryPrice
+          _version
+          _deleted
+          _lastChangedAt
+        }
         name
-        tagline
-        logo
-        cover
-        category {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        city {
-          id
-          name
-          uf
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        address
-        zipCode
-        whatsapp
-        products {
-          nextToken
-          startedAt
-        }
-        deliveryTax
-        minDeliveryPrice
+        description
+        picture
+        price
+        isInPromotion
+        promotionalPrice
+        promotionDueDate
         _version
         _deleted
         _lastChangedAt
       }
-      name
-      description
-      picture
-      price
-      isInPromotion
-      promotionalPrice
-      promotionDueDate
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

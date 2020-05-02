@@ -70,6 +70,10 @@ type Product
 }
 
 type Query {
-  listOtherCompanyProducts: [Product!]
+  listOtherCompanyProducts(companyId: ID!, productId: ID!): ProductConnection
     @function(name: "listOtherCompanyProducts-${env}")
+}
+
+type ProductConnection {
+  items: [Product!]
 }
