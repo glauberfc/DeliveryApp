@@ -1,33 +1,31 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, FlatList } from 'react-native'
 
-import usePromotions from '../../hooks/use-promotions'
-import { FlatList } from 'react-native-gesture-handler'
 import CategoryCard from './CategoryCard'
+import useCategories from '../../hooks/use-categories'
 
-export default function PromotionsList() {
-  return null
-  // const [promotions, isLoading, error] = usePromotions()
+export default function CategoryList() {
+  const [categories, isLoading, error] = useCategories()
 
-  // if (isLoading) {
-  //   return <Text accessibilityRole="text">Loading...</Text>
-  // }
+  if (isLoading) {
+    return <Text accessibilityRole="text">Loading...</Text>
+  }
 
-  // return (
-  //   <View>
-  //     <FlatList
-  //       horizontal
-  //       keyExtractor={(item) => item.id}
-  //       data={promotions}
-  //       renderItem={({ item }) => <CategoryCard category={item} />}
-  //     />
-  //   </View>
-  // )
+  return (
+    <View style={styles.container}>
+      <FlatList
+        horizontal
+        keyExtractor={({ id }) => id.toString()}
+        data={categories}
+        renderItem={({ item }) => <CategoryCard category={item} />}
+      />
+    </View>
+  )
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     justifyContent: 'space-between',
-//     marginHorizontal: 16,
-//   },
-// })
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    // marginHorizontal: 16,
+  },
+})

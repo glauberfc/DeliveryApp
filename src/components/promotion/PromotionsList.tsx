@@ -22,7 +22,7 @@ export default function PromotionsList() {
         <FlatList
           columnWrapperStyle={styles.container}
           numColumns={2}
-          keyExtractor={(item) => item.id}
+          keyExtractor={({ id }) => id.toString()}
           data={promotions}
           renderItem={({ item }) => <PromotionCard product={item} />}
           ListEmptyComponent={

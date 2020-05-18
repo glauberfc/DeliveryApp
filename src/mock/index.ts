@@ -16,7 +16,7 @@ export const categories = [
     id: 1,
     name: 'Restaurantes',
     icon:
-      'https://www.google.com/url?sa=i&url=http%3A%2F%2Fwww.parqueamantikir.com.br%2Fvisite%2Fgrupos%2F400-tabletalk-icon-food-rgb%2F&psig=AOvVaw19YYspqvHCUun4f4kyJChR&ust=1589816352068000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLivr8udu-kCFQAAAAAdAAAAABAD',
+      'http://www.parqueamantikir.com.br/wp-content/uploads/2016/03/400-TableTalk-icon-food-rgb.png',
   },
   {
     id: 2,
@@ -44,6 +44,10 @@ export const products = {
     },
   ],
 }
+
+export const promotions = [...products.company1].filter(
+  (item) => item.isInPromotion === true,
+)
 
 export const companies = [
   {

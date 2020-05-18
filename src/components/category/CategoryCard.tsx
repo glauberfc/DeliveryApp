@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { Avatar, Text } from 'react-native-elements'
 
 import { Category } from '../../models'
-import { Avatar } from 'react-native-elements'
+import { metrics } from '../../styles'
 
 interface Props {
   category: Category
@@ -10,15 +11,23 @@ interface Props {
 
 export default function CategoryCard({ category }: Props) {
   return (
-    <View>
+    <View style={styles.container}>
       <Avatar
+        size={metrics.categoryIconSize}
         rounded
-        icon={{
-          name: 'restaurant',
-          type: 'ionicons',
-        }}
+        source={{ uri: category.icon }}
       />
-      <Text>Comida</Text>
+      <Text style={styles.title}>{category.name}</Text>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  title: {
+    marginTop: 8,
+  },
+})

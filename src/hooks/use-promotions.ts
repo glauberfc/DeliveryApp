@@ -11,6 +11,7 @@ import {
 import { promotionsByCategory, listProducts } from '../graphql/queries'
 import { Product } from '../models'
 import { IDLE, LOADING, RESOLVED, REJECTED } from '../constants/status'
+import { promotions } from '../mock'
 
 interface State {
   promotions: Product[]
@@ -82,6 +83,7 @@ export default function usePromotions(): UsePromotionsReturn {
       try {
         dispatch({ type: LOADING })
         const promotions = await fetchPromotions(categoryId)
+        console.log(promotions)
         dispatch({ type: RESOLVED, promotions })
       } catch (error) {
         console.log(error)
@@ -102,25 +104,32 @@ export default function usePromotions(): UsePromotionsReturn {
 
 async function fetchPromotions(categoryId?: string) {
   if (categoryId) {
-    const { data } = (await API.graphql(
-      graphqlOperation(promotionsByCategory, {
-        companyCategoryId: categoryId,
-        filter: {
-          isInPromotion: { eq: true },
-        },
-      } as QueryVariables1),
-    )) as GraphQLResult<Query1>
+    // const { data } = (await API.graphql(
+    //   graphqlOperation(promotionsByCategory, {
+    //     companyCategoryId: categoryId,
+    //     filter: {
+    //       isInPromotion: { eq: true },
+    //     },
+    //   } as QueryVariables1),
+    // )) as GraphQLResult<Query1>
 
-    return data.promotionsByCategory.items
+    // return data.promotionsByCategory.items
+    console.log('promotions', promotions)
+    let p = []
+    setTimeout(() => (p = promotions), 1000)
+    return p
   }
 
-  const { data } = (await API.graphql(
-    graphqlOperation(listProducts, {
-      filter: {
-        isInPromotion: { eq: true },
-      },
-    } as QueryVariables2),
-  )) as GraphQLResult<Query2>
+  // const { data } = (await API.graphql(
+  //   graphqlOperation(listProducts, {
+  //     filter: {
+  //       isInPromotion: { eq: true },
+  //     },
+  //   } as QueryVariables2),
+  // )) as GraphQLResult<Query2>
 
-  return data.listProducts.items
+  // return data.listProducts.items
+  let p = []
+  setTimeout(() => (p = promotions), 1000)
+  return p
 }
